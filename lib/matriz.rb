@@ -1,5 +1,5 @@
 class Matriz
-	attr_accessor :columns, :lines, :vetor
+	attr_reader :columns, :lines, :vetor
 
 	def initialize(columns, lines)
 		@columns = columns
