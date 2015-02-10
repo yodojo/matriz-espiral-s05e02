@@ -14,16 +14,16 @@ class Matriz
 
     while @sequence < matrix_area do
       (even_cycle..last_position_column - (cycle + one)).each do | c |
-        @matrix[cycle][c] ||= next_number
+        @matrix[cycle][c] ||= next_number!
       end
       (cycle..last_position_line - (cycle + one)).each do | l |
-        @matrix[l][last_position_column - cycle] ||= next_number
+        @matrix[l][last_position_column - cycle] ||= next_number!
       end
       (last_position_column - cycle).downto(even_cycle + one) do | c |
-        @matrix[last_position_line - cycle][c] ||= next_number
+        @matrix[last_position_line - cycle][c] ||= next_number!
       end
       (last_position_line - cycle).downto(cycle + two) do | l |
-        @matrix[l][cycle] ||= next_number
+        @matrix[l][cycle] ||= next_number!
       end
 
       cycle = cycle.next
@@ -32,6 +32,8 @@ class Matriz
     @matrix
   end
 
+  private 
+  
   def last_position_column
     @columns - 1
   end
@@ -40,7 +42,7 @@ class Matriz
     @lines - 1
   end
 
-  def next_number
+  def next_number!
     @sequence = @sequence.next
   end
 
