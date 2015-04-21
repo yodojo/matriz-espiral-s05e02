@@ -1,46 +1,56 @@
 class Matriz
-	attr_accessor :columns, :lines, :vetor
+  attr_reader :columns, :lines, :matrix_area
 
-	def initialize(columns, lines)
-		@columns = columns
-		@lines = lines
-		@vetor = []
-	end
+  def initialize(columns, lines)
+    @columns = columns
+    @lines = lines
+    @matrix = Array.new(lines){ Array.new(columns) }
+    @matrix_area = columns * lines
+    @sequence = 0
+  end
 
-	def retorna_matriz
-		i = 0
-		(1..@lines).each do |linha|
-			@vetor[linha] = []
-			(1..@columns).each do |coluna| 
-				
-				if linha == 1
-					i += 1
-					@vetor[linha][coluna] = i
-				elsif coluna == @columns
-					i += 1
-					@vetor[linha][coluna] = i
+  def mount_matrix
+    cycle = even_cycle = 0
 
-				elsif linha == @lines
-					@vetor[linha][coluna] =  i
+    while @sequence < matrix_area do
+      (even_cycle..last_position_column - (cycle + one)).each do | c |
+        @matrix[cycle][c] ||= next_number!
+      end
+      (cycle..last_position_line - (cycle + one)).each do | l |
+        @matrix[l][last_position_column - cycle] ||= next_number!
+      end
+      (last_position_column - cycle).downto(even_cycle + one) do | c |
+        @matrix[last_position_line - cycle][c] ||= next_number!
+      end
+      (last_position_line - cycle).downto(cycle + two) do | l |
+        @matrix[l][cycle] ||= next_number!
+      end
 
-				else
-					@vetor[linha][coluna] = i
-				end
+      cycle = cycle.next
+      even_cycle = even_cycle.next if cycle.even?
+    end
+    @matrix
+  end
 
+  private 
+  
+  def last_position_column
+    @columns - 1
+  end
 
-				if linha != 1
-					@vetor[linha][1] = (@lines*@columns) - linha
-				end
-			end
+  def last_position_line
+    @lines - 1
+  end
 
-			puts @vetor[linha].join(' ')
-		end
+  def next_number!
+    @sequence = @sequence.next
+  end
 
-		
-		@vetor
+  def one
+    1
+  end
 
-	
-		# puts @vetor[linha].join(' ')
-
-	end
+  def two
+    2
+  end
 end
