@@ -1,4 +1,4 @@
-# Coding Dojo s05e02
+# Coding Dojo s05e02 [![Build Status](https://travis-ci.org/yodojo/matriz-espiral-s05e02.svg?branch=master)](https://travis-ci.org/yodojo/matriz-espiral-s05e02)
 
 ### Problema: Matriz Problema
 
